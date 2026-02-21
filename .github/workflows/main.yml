@@ -27,9 +27,9 @@ jobs:
         mkdir -p Payload
         cp -RP build/ios/iphoneos/Runner.app Payload/
         zip -ry release.ipa Payload
+        ls -lh release.ipa
     - name: Upload IPA
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v3
       with:
-        name: ios-app-release
+        name: ios-app
         path: release.ipa
-        if-no-files-found: error

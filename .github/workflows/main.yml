@@ -24,11 +24,12 @@ jobs:
         flutter build ios --release --no-codesign
     - name: Create IPA for Sideloadly
       run: |
-        mkdir Payload
-        mv build/ios/iphoneos/Runner.app Payload/
-        zip -r release.ipa Payload
+        mkdir -p Payload
+        cp -RP build/ios/iphoneos/Runner.app Payload/
+        zip -ry release.ipa Payload
     - name: Upload IPA
       uses: actions/upload-artifact@v4
       with:
-        name: ios-app
+        name: ios-app-release
         path: release.ipa
+        if-no-files-found: error

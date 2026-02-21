@@ -22,14 +22,17 @@ jobs:
     - name: Build iOS (No Codesign)
       run: |
         flutter build ios --release --no-codesign
+    - name: Check Build Result
+      run: ls -R build/ios/iphoneos
     - name: Create IPA for Sideloadly
       run: |
+        rm -rf Payload
         mkdir -p Payload
         cp -RP build/ios/iphoneos/Runner.app Payload/
-        zip -ry release.ipa Payload
-        ls -lh release.ipa
+        zip -ry Cypcar.ipa Payload
+        ls -lh Cypcar.ipa
     - name: Upload IPA
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: ios-app
-        path: release.ipa
+        name: Cypcar_IPA_File
+        path: Cypcar.ipa
